@@ -1,5 +1,5 @@
-import fastify from "fastify";
 import cors from "@fastify/cors";
+import fastify from "fastify";
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 
 // Setup Fastify + Zod server

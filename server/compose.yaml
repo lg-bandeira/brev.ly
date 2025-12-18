@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: brevly_db
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      # Creates a Docker-managed volume to persist the data
+      - brevly_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      # Ensures that the container is only considered "healthy" when the database accepts connections
+      test: ["CMD-SHELL", "pg_isready -U docker -d brevly"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  brevly_pg_data:
