@@ -5,6 +5,7 @@ import fastify from "fastify";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createLink } from "./routes/create-link";
 import { deleteLink } from "./routes/delete-link";
+import { exportCsv } from "./routes/export-csv";
 import { getLink } from "./routes/get-link";
 import { listLinks } from "./routes/list-links";
 
@@ -36,6 +37,7 @@ app.register(createLink);
 app.register(getLink);
 app.register(listLinks);
 app.register(deleteLink);
+app.register(exportCsv);
 
 // Start server
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
