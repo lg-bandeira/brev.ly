@@ -19,7 +19,14 @@ export async function createLink(app: FastifyInstance) {
     async (request, reply) => {
       const { originalUrl } = request.body;
 
-      // 1. Enter the original URL to obtain a unique ID.
+      // Checks if the URL already exists in the database.
+      const existingLink = await db.select().from(links).where(eq(links.originalUrl, originalUrl)).limit(1);
+
+      if (existingLink.length > 0) {
+        return reply.status(200).send({ shortCode: existingLink[0].shortCode, originalUrl });
+      }
+
+      // Enter the original URL to obtain a unique ID, in case it's a new link.
       const [newLink] = await db
         .insert(links)
         .values({
@@ -27,10 +34,10 @@ export async function createLink(app: FastifyInstance) {
         })
         .returning({ id: links.id });
 
-      // 2. Convert the generated numeric ID to Base62 (with Offset)
+      // Convert the generated numeric ID to Base62 (with Offset)
       const code = encode(newLink.id);
 
-      // 3. Update the record with the generated code.
+      // Update the record with the generated code.
       await db.update(links).set({ shortCode: code }).where(eq(links.id, newLink.id));
 
       return reply.status(201).send({ shortCode: code, originalUrl });
