@@ -1,6 +1,9 @@
 import cors from "@fastify/cors";
+import fastifySwagger from "@fastify/swagger";
+import scalarUI from "@scalar/fastify-api-reference";
 import fastify from "fastify";
-import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { createLink } from "./routes/create-link";
 
 // Setup Fastify + Zod server
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -11,6 +14,22 @@ app.setSerializerCompiler(serializerCompiler);
 
 // Setup plugins
 app.register(cors, { origin: "*" });
+app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "Brev.ly API",
+      description: "Brev.ly API documentation",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+app.register(scalarUI, {
+  routePrefix: "/docs",
+});
+
+// Register routes
+app.register(createLink);
 
 // Start server
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {

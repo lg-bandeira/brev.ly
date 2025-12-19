@@ -9,7 +9,7 @@ const envSchema = z.object({
   // CLOUDFLARE_BUCKET: z.string(),
   // CLOUDFLARE_PUBLIC_URL: z.url(),
 
-  BASE_URL: z.url(),
+  // BASE_URL: z.url(),
   HASHIDS_SALT: z.string(),
 });
 
