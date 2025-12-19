@@ -5,6 +5,7 @@ import fastify from "fastify";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createLink } from "./routes/create-link";
 import { getLink } from "./routes/get-link";
+import { listLinks } from "./routes/list-links";
 
 // Setup Fastify + Zod server
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -32,6 +33,7 @@ app.register(scalarUI, {
 // Register routes
 app.register(createLink);
 app.register(getLink);
+app.register(listLinks);
 
 // Start server
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
