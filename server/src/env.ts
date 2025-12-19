@@ -8,6 +8,9 @@ const envSchema = z.object({
   // CLOUDFLARE_SECRET_ACCESS_KEY: z.string(),
   // CLOUDFLARE_BUCKET: z.string(),
   // CLOUDFLARE_PUBLIC_URL: z.url(),
+
+  BASE_URL: z.url(),
+  HASHIDS_SALT: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
