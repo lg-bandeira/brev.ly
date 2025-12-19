@@ -4,6 +4,7 @@ import scalarUI from "@scalar/fastify-api-reference";
 import fastify from "fastify";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createLink } from "./routes/create-link";
+import { deleteLink } from "./routes/delete-link";
 import { getLink } from "./routes/get-link";
 import { listLinks } from "./routes/list-links";
 
@@ -34,6 +35,7 @@ app.register(scalarUI, {
 app.register(createLink);
 app.register(getLink);
 app.register(listLinks);
+app.register(deleteLink);
 
 // Start server
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
