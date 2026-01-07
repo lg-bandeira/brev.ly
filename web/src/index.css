@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  /* Defining the project's fonts */
+  --font-sans: "Open Sans", sans-serif;
+
+  /* Defining the project's colors */
+  --color-blue-base: #2c46b1;
+  --color-blue-dark: #2c4091;
+
+  --color-gray-100: #f9f9fb;
+  --color-gray-200: #e4e6ec;
+  --color-gray-300: #cdcfd5;
+  --color-gray-600: #1f2025;
+
+  --color-danger: #b12c4d;
+}
+
+/* Global styles */
+body {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-600);
+  font-family: var(--font-sans);
+}
