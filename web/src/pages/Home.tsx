@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DownloadSimple, Link } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import logo from "../assets/logo.svg";
+import Logo from "../assets/logo.svg";
 import Button from "../components/Button";
 import { IconButton } from "../components/IconButton";
 import Input from "../components/Input";
@@ -30,9 +30,9 @@ export const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 font-sans text-gray-600 p-6 md:p-12">
+    <div className="min-h-screen bg-gray-200 text-gray-600 p-6 md:p-12">
       <header className="mb-10 max-w-6xl mx-auto flex items-center gap-2">
-        <img src={logo} alt="brev.ly" className="h-10 w-auto object-contain" />
+        <img src={Logo} alt="brev.ly" className="h-10 w-auto object-contain" />
       </header>
 
       <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8 items-start">
