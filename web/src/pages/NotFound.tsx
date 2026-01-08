@@ -9,7 +9,7 @@ export const NotFound = () => {
         </div>
         <h1 className="text-xl font-bold text-gray-600 mb-4">Link not found</h1>
         <p className="text-md font-semibold text-gray-500 mb-2">
-          The link you are trying to access does not exist, has been removed, or is an invalid URL. Learn more at{" "}
+          The link you are trying to access does not exist, has been removed, or is an invalid URL. Return to{" "}
           <a href="/" className="text-blue-base hover:underline hover:text-blue-dark transition-colors">
             brev.ly
           </a>

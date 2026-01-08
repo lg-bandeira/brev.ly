@@ -1,4 +1,5 @@
 import axios from "axios";
+import { env } from "../env";
 
 export interface LinkItem {
   id: number;
@@ -23,7 +24,7 @@ export interface ListLinksParams {
 }
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: env.VITE_BACKEND_URL,
 });
 
 export async function createLink(originalUrl: string) {
@@ -45,6 +46,11 @@ export async function listLinks(params?: ListLinksParams) {
 
 export async function deleteLink(shortCode: string) {
   await api.delete(`/links/${shortCode}`);
+}
+
+export async function verifyLink(shortCode: string) {
+  const response = await api.get(`/verify/${shortCode}`);
+  return response.data;
 }
 
 export async function exportCsv() {

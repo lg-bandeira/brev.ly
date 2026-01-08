@@ -1,21 +1,36 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LogoIcon from "../assets/logo-icon.svg";
+import { verifyLink } from "../lib/api";
 
 export const Redirect = () => {
   const { code } = useParams();
+  const navigate = useNavigate();
 
   const backendUrl = `${import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "")}/${code}`;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (code) {
-        window.location.href = backendUrl;
-      }
-    }, 2500);
+    const validateAndRedirect = async () => {
+      const shortCodeRegex = /^[a-zA-Z0-9]{5}$/;
 
-    return () => clearTimeout(timer);
-  }, [code, backendUrl]);
+      // Format validation
+      if (!code || !shortCodeRegex.test(code)) {
+        navigate("/404", { replace: true });
+        return;
+      }
+
+      try {
+        // Backend validation
+        await verifyLink(code);
+
+        window.location.href = backendUrl;
+      } catch (error) {
+        navigate("/404", { replace: true });
+      }
+    };
+
+    validateAndRedirect();
+  }, [code, backendUrl, navigate]);
 
   return (
     <div className="min-h-screen bg-gray-200 flex items-center justify-center p-6">

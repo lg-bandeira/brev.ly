@@ -11,11 +11,11 @@ import IconButton from "../components/IconButton";
 import Input from "../components/Input";
 import { createLink, deleteLink, exportCsv, getShortLinkUrl, listLinks, type LinkItem } from "../lib/api";
 
-const createLinkSchema = z.object({
+const formDataSchema = z.object({
   originalUrl: z.url("Invalid URL format"),
 });
 
-type CreateLinkData = z.infer<typeof createLinkSchema>;
+type formData = z.infer<typeof formDataSchema>;
 
 export const Home = () => {
   const [links, setLinks] = useState<LinkItem[]>([]);
@@ -26,8 +26,8 @@ export const Home = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<CreateLinkData>({
-    resolver: zodResolver(createLinkSchema),
+  } = useForm<formData>({
+    resolver: zodResolver(formDataSchema),
   });
 
   const fetchLinks = async () => {
@@ -43,9 +43,9 @@ export const Home = () => {
     }
   };
 
-  const handleCreateLink = async (linkData: CreateLinkData) => {
+  const handleCreateLink = async (data: formData) => {
     try {
-      await createLink(linkData.originalUrl);
+      await createLink(data.originalUrl);
       await fetchLinks();
       reset();
       toast.success("Link shortened successfully!");
