@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { isAxiosError } from "axios";
 import { CopySimple, DownloadSimple, Link, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -49,6 +50,12 @@ export const Home = () => {
       reset();
       toast.success("Link shortened successfully!");
     } catch (error) {
+      if (isAxiosError(error) && error.response?.status === 409) {
+        toast.info("This link has already been shortened.");
+        reset();
+        return;
+      }
+
       console.error("Error while trying to create link.", error);
       toast.error("Failed to create link. Please try again.");
     }
