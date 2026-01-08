@@ -23,7 +23,7 @@ export async function createLink(app: FastifyInstance) {
       const existingLink = await db.select().from(links).where(eq(links.originalUrl, originalUrl)).limit(1);
 
       if (existingLink.length > 0) {
-        return reply.status(200).send({ shortCode: existingLink[0].shortCode, originalUrl });
+        return reply.status(409).send({ message: "Link already exists.", shortCode: existingLink[0].shortCode, originalUrl });
       }
 
       // Enter the original URL to obtain a unique ID, in case it's a new link.
