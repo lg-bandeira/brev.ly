@@ -8,6 +8,7 @@ import { deleteLink } from "./routes/delete-link";
 import { exportCsv } from "./routes/export-csv";
 import { getLink } from "./routes/get-link";
 import { listLinks } from "./routes/list-links";
+import { verifyLink } from "./routes/verify-link.js";
 
 // Setup Fastify + Zod server
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -37,6 +38,7 @@ app.register(createLink);
 app.register(getLink);
 app.register(listLinks);
 app.register(deleteLink);
+app.register(verifyLink);
 app.register(exportCsv);
 
 // Start server
