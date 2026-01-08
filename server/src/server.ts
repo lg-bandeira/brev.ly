@@ -17,7 +17,7 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 // Setup plugins
-app.register(cors, { origin: "*" });
+app.register(cors, { origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] });
 app.register(fastifySwagger, {
   openapi: {
     info: {
